@@ -11,25 +11,21 @@ class Login extends React.Component {
             nameError: '',
             passwordError: '',
             alertmsg: '',
-            alerclass: ''
+            alerclass: '',
+            isLogin: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
-
     handleChange(event) {
        this.setState({ [event.target.name]: event.target.value});
        event.preventDefault();
     }
-
-
-
     validate = () => {
         
         let nameError = "";
         let passwordError = "";
         
-
         if (this.state.username.length < 5) {
             nameError = "name cannot be blank";
           }
@@ -58,13 +54,18 @@ class Login extends React.Component {
         let storePassword = 'vijay';
         
         if((this.state.username === storedUser ) && (this.state.password === storePassword )) {
+
+            console.log("aunthonticate");
+
             this.setState({
                 alertmsg: 'Successfully Login',
                 alerclass: 'text-success',
                 nameError: "",
                 passwordError: "",
-                
+                isLogin:true
             })
+
+           
 
             return true
 
@@ -97,10 +98,25 @@ class Login extends React.Component {
         }
 
     render() {
+
+        const coloStyle = {
+            color:'black',
+        };
+
+        const classes = [];
+
+        if(this.state.isLogin) {
+            coloStyle.color ='green';
+            classes.push('d-none');
+        }
+
+        console.log("render");
+
        return  (
            <div className="col-md-5 mx-auto">
                <div className="text-center">
-                    <h3 className={this.state.alerclass}>{this.state.alertmsg}</h3>
+                   <h1 className="mb-5 mt-5" style={coloStyle}>Welcome To our website</h1>
+                   <h3 className={this.state.alerclass}>{this.state.alertmsg}</h3>
                </div>
                <div className="card">
                    <div className="card-header">
@@ -129,7 +145,16 @@ class Login extends React.Component {
                             <div className="offset-md-3 mt-2">
                                 <Link className="btn btn-link text-sm pl-0" to="/register">Register New User</Link>
                             </div>
+                            <div className={classes.join(' ')}>Invisible after login</div>
                         </form>
+                        <div className="">
+                            <ul className="list-unstyled">
+                                <li>Form Validation and validation msg</li>
+                                <li>Conditional message</li>
+                                <li>Conditional Styling and classes</li>
+                                <li>Routing</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
            </div>
